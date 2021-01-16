@@ -89,7 +89,7 @@ https://sys-thos.de/DelphiDox/
 Credits:
 --------
 Based on [MipsStaticStackAnalyzer](https://github.com/SentinelSw/MipsStaticStackAnalyzer)
-by Florian Kaup, i.A. Magnetic Sense GmbH (kaup.florian@sentinelsw.de)
+by Florian Kaup, [Magnetic Sense GmbH](https://magnetic-sense.com/),
 for mips gcc in general and xc32 from Microchip Technology Inc. in
 special with MIPS32 release 5 target architecture.
 
