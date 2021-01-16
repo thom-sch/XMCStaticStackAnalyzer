@@ -1,0 +1,20 @@
+# Backups und history/recovery: das erledigt sowieso das git
+__history
+__recovery
+*.~*
+*.*~
+*.bak
+*.zip
+# Von Delphi erzeugte Dateien:
+Debug
+*.rsm
+*.dcu
+*.o
+*.obj
+# Batch-Dateien und Doxygen-Konfigurationsdatei außer Doxygen.bat:
+# --> Doxygen.bat explizit zu .git hinzufügen (git add....)!
+*.bat
+*.dox
+html
+# allg. Dokumentation, nicht für github!
+Dok

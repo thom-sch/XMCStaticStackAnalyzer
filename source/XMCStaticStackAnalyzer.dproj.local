@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.304,=C:\Daten\Projekte\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.690,=C:\Daten\Projekte\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.652,=C:\Daten\Projekte\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.721,=C:\Daten\Projekte\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.897,=C:\Daten\Projekte\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.363,C:\Daten\Projekte\Unit1.pas=C:\Daten\Projekte\Delphi\StackAnalyser\frm_StackAnalyser.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.358,C:\Daten\Projekte\Delphi\StackAnalyser\frm_StackAnalyser.dfm=C:\Daten\Projekte\Delphi\StackAnalyser\frm_StackAnalyzer.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.363,C:\Daten\Projekte\Unit1.dfm=C:\Daten\Projekte\Delphi\StackAnalyser\frm_StackAnalyser.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.715,=C:\Daten\Projekte\Delphi\StackAnalyser\Doxygen\DelphiDox.dox</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.114,C:\Daten\Projekte\Delphi\StackAnalyser\StackAnalyzer.dproj=C:\Daten\Projekte\Delphi\StackAnalyser\StaticAnalyzer.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.403,C:\Daten\Projekte\Delphi\StackAnalyser\src\Analyzer.pas=C:\Daten\Projekte\Delphi\StackAnalyser\Analyzer.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.731,=C:\Daten\Projekte\Delphi\StackAnalyser\Doxygen\ShowDox.bat</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.272,C:\Daten\Projekte\Delphi\StaticAnalyser\frm_StackAnalyzer.pas=C:\Daten\Projekte\Delphi\StaticAnalyser\src\frm_StackAnalyzer.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.325,C:\Daten\Projekte\Delphi\StaticAnalyser\source\StaticAnalyzer.dproj=C:\Daten\Projekte\Delphi\StaticAnalyser\source\XMCStaticStackAnalyzer.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.362,C:\Daten\Projekte\Delphi\StackAnalyser\Unit1.pas=C:\Daten\Projekte\Delphi\StackAnalyser\Analyser.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.844,=C:\Daten\Projekte\Delphi\StackAnalyser\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.714,C:\Daten\Projekte\Project1.dproj=C:\Daten\Projekte\Delphi\StackAnalyser\StackAnalyser.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.505,=C:\Daten\Projekte\Delphi\StackAnalyser\Doxygen\Doxyfile.bat</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.358,C:\Daten\Projekte\Delphi\StackAnalyser\frm_StackAnalyser.pas=C:\Daten\Projekte\Delphi\StackAnalyser\frm_StackAnalyzer.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.272,C:\Daten\Projekte\Delphi\StaticAnalyser\frm_StackAnalyzer.dfm=C:\Daten\Projekte\Delphi\StaticAnalyser\src\frm_StackAnalyzer.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.841,C:\Daten\Projekte\Delphi\StackAnalyser\StackAnalyser.dproj=C:\Daten\Projekte\Delphi\StackAnalyser\StackAnalyzer.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.775,C:\Daten\Projekte\Delphi\StackAnalyser\Analyser.pas=C:\Daten\Projekte\Delphi\StackAnalyser\Analyzer.pas</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile iOSSimulator="iPhone5"/>
+	</ActiveMobileDevice>  <BT_BuildType>Debug</BT_BuildType>
+</BorlandProject>
