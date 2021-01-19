@@ -20,8 +20,8 @@ This is a GUI program; so
 - select
   - Display mode:
     - Markdown table
-    - hierarchical function list (call tree)
-  - in the latter case (call tree): \n
+    - call tree
+  - in the latter case (call tree):<br>
     select max. call deepth shown
   - include functions (excluded by default):
     - with no stack usage
@@ -82,7 +82,7 @@ eMail:    Thomsa.Schneider@sys-thos.de
 ### Copyright
 GPLv3 (https://www.gnu.org/licenses/gpl-3.0)
 
-Doxygen dokumentation created using DelphiDox-ALIASES, details on\n
+Doxygen dokumentation created using DelphiDox-ALIASES, details on<br>
 https://sys-thos.de/DelphiDox/
 
 
