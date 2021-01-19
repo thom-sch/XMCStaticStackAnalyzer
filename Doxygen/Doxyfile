@@ -156,7 +156,7 @@ ALIASES                = "Delphi=^^ \cond Delphi ^^ \n" \
                          "CClassPropertyDecl{2} =\SkipSnippet{\1 :,\2 = \\{}" \
                          "CClassArrPropDecl{2}  =\SkipSnippet{\1 :,\2[}" \
                          "CClassDefPropDecl{2}  =\SkipSnippet{\1 :,\2[} ^^ \skipline \[" \
-                         "CStructDecl{1}        =\Snippet{struct DECLSPEC_DRECORD \1,\};}" \
+                         "CStructDecl{1}        =\Snippet{struct DECLSPEC_DRECORD \1,\\};}" \
                          "CEnumDecl{1}          =\skipline enum DECLSPEC_DENUM \1 :" \
                          "CFuncDecl{1}          =\skipline \1(" \
                          "CVarDecl{2}           =\skipline DELPHI_PACKAGE \1 \2;" \

@@ -4,6 +4,7 @@ rem set PROJECTNAME=$(PROJECTNAME)        --> set environment to actual projectn
 rem set DOXYPROJECTNAME=$(OUTPUTFILENAME) --> set environment to actual project-outputfile
 rem cd .\Doxygen                          --> changes directory: path to this file (Doxygen.bat)
 rem Doxygen.bat                           --> execute this file
+
 IF EXIST MakeDoxyDok.bat MakeDoxyDok
 
 rem ----------------------------------------------------------------------------

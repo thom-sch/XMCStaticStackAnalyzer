@@ -33,27 +33,28 @@ This is a GUI program; so
   - by own stack usage
   - by deepest stack usage
 - load an assembler list file (*.lst) file via button
-- if display mode is "Markdown table": \n
+- if display mode is "Markdown table":<br>
   save it as markdown table via save button
 
 ### Program output
 The output consits of following columns:
-- Friendly Name: function name in a friendly spelling\n
+- **Friendly Name:** function name in a friendly spelling<br>
   Compiler decorates function names in various ways; these decorations are
   deleted here to
   - make names more readable
   - have a better relation to C-Source-Code
-  See column "Name" for orinal (decorated) name.
-- Own: the function's stack usage
-- Deepest: Deepest estimated stack usage
-- CallDeepth: Deepth of call tree
-- CallCnt: number of functions calling thes functions
-- Flags to indicate some situations the stack usage couldn't calculated:
+
+  See column "Name" for original (decorated) name.
+- **Own**: the function's stack usage
+- **Deepest**: Deepest estimated stack usage
+- **CallDeepth**: Deepth of call tree
+- **CallCnt**: number of functions calling thes functions
+- **Flags** to indicate some situations the stack usage couldn't calculated:
   - 'P': function uses pointers to call other functions
   - 'I': called functions are using indirect function calls, too
   - 'V': stack is manipulated by variable's values
   - 'R': function is called (directly or indirectly) recursively called by itself
-- Name: Original name from assembler listing
+- **Name**: Original name from assembler listing
 
 
 --------------------------------------------------------------------------------

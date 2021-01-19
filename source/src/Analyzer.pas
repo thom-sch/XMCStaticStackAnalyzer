@@ -77,17 +77,16 @@ PROCEDURE sortForOwn();
 PROCEDURE sortForDeepest();
 PROCEDURE sortForName();
 
-//procedure FileList(const APath, AExt: string; ARecurse: Boolean; AList: TStrings);
 PROCEDURE GetSU(DirName: String; Fct: TStrings); // not fully implemented
 
 implementation
 
-uses SysUtils;
+uses Windows, SysUtils;
 
 TYPE uint32_t = Cardinal;
 
-CONST textSectionString: AnsiString = 'Disassembly of section .text';
-CONST sectionString:     AnsiString = 'Disassembly of section ';
+CONST textSectionString: String = 'Disassembly of section .text';
+CONST sectionString:     String = 'Disassembly of section ';
 
 // -----------------------------------------------------------------------------
 //! @endcond
@@ -126,22 +125,29 @@ TYPE TFunctionFlags = SET OF TFunctionFlag;
 // -----------------------------------------------------------------------------
 TYPE
      PFunctionInfo = ^TFunctionInfo;
+
+     TFunctionID = RECORD
+       Name: String;
+       Info: PFunctionInfo;
+     END;
+
      TFunctionInfo = RECORD
-       name:         AnsiString;          // Name of the function as it is in *.lst-file
-       displayname:  AnsiString;          // Name of the function as is in C-source
-       startaddr:    uint32_t;            // Start address of the function
-       endaddr:      uint32_t;            // End address of the function
-       ownStack:     uint32_t;            // Estimated maximum own stack usage
-       deepest:      uint32_t;            // Estimated amount of stack bytes for this function and the deepest call tree
-       calledFct:    ARRAY OF AnsiString; // Names of called functions
-       numJumpsTo:   INTEGER;             // Number of entries in ::calledFct, i.e. number of (directly) called functions
-       calldeepth:   uint32_t;            // Number hierarchically called functions
-       callcnt:      uint32_t;            // Number of caller's calling this function
-       FunctionFlags: TFunctionFlags;     //
-       isProcessed:  BOOLEAN;             // Flag if deepest stack usage was calculated
-       isProcessing: BOOLEAN;             // Flag if deepest stack usage is currently calculated:
-                                          // avoid recursive endless loops
-       next:         PFunctionInfo;       // Pointer to the next list member
+       name:         String;          // Name of the function as it is in *.lst-file
+       displayname:  String;          // Name of the function as is in C-source
+       startaddr:    uint32_t;        // Start address of the function
+       endaddr:      uint32_t;        // End address of the function
+       ownStack:     uint32_t;        // Estimated maximum own stack usage
+       deepest:      uint32_t;        // Estimated amount of stack bytes for this function and the deepest call tree
+       //calledFct:    ARRAY OF String; // Names of called functions
+       CalledFctIDs: ARRAY OF TFunctionID;
+       numJumpsTo:   INTEGER;         // Number of entries in ::calledFct, i.e. number of (directly) called functions
+       calldeepth:   uint32_t;        // Number hierarchically called functions
+       callcnt:      uint32_t;        // Number of caller's calling this function
+       FunctionFlags: TFunctionFlags; //
+       isProcessed:  BOOLEAN;         // Flag if deepest stack usage was calculated
+       isProcessing: BOOLEAN;         // Flag if deepest stack usage is currently calculated:
+                                      // avoid recursive endless loops
+       next:         PFunctionInfo;   // Pointer to the next list member
        FUNCTION IsSysFunc(): BOOLEAN;
        FUNCTION UsesStack(): BOOLEAN;
        FUNCTION IsVisible(ViewOptions: TViewOptions): BOOLEAN;
@@ -149,7 +155,9 @@ TYPE
 
 FUNCTION TFunctionInfo.IsSysFunc(): BOOLEAN;
 BEGIN
-  Result := displayname[1] = '_';
+  Result := (displayname[1] = '_')
+         OR ((displayname[1] = '~') AND (displayname[2] = '_')) // Destructor!
+         ;
 END;
 FUNCTION TFunctionInfo.UsesStack(): BOOLEAN;
 BEGIN
@@ -288,7 +296,7 @@ END;
 //! @result Pointer to @ref TFunctionInfo or NIL if not found
 //! @cond
 // -----------------------------------------------------------------------------
-FUNCTION findFunctionByName(Name: AnsiString): PFunctionInfo;
+FUNCTION findFunctionByName(Name: String): PFunctionInfo;
 VAR current: PFunctionInfo;
 BEGIN
   current := firstFunctionInfo;
@@ -336,13 +344,36 @@ END; //! sFlags
 //!
 //! GNU-C compiler esp. decorates / converts class method names to eliminate
 //! the "::" separator and/or to resolve overloaded method names. This decoration
-//! will be deleted here.
+//! is deleted here.
+//!
+//! Function decoration seems to be as follows:
+//! - "_GLOBAL__sub_I_": optional
+//! - "_Z...", where "..." <> 0..9 don't care (not figured out):
+//!   if "_Z..." exist \c name consists of one or more parts, defining class names
+//!   separated by "::":
+//!   - NN: length of following part
+//!   - NN characters: part name
+//!
+//!   Except of the first one for friendly name "NN" is replaced by "::". \n
+//!   After the last part there is an optional signatur:
+//!   - "C": constructor
+//!   - "D": destructor
+//!   - others: argument signatur(?) / not figured out
+//!
+//!   If "C" or "D" is recognized, "()" is added, for "D" the friendly name
+//!   additionally is prefixed by "~".
 //!
 //! @cond
 // -----------------------------------------------------------------------------
-FUNCTION FriendlyName(CONST name: AnsiString): AnsiString;
+FUNCTION FriendlyName(CONST name: String): String;
 
-  FUNCTION AddName(i: INTEGER; VAR s: AnsiString): INTEGER;
+  FUNCTION AddNamePart(i: INTEGER; VAR s: String): INTEGER;
+  // Extrahiert aus s einen Namen-Teil, name[i..j] = Ziffern:
+  // - extrahiert die Ziffern name[i..j] --> n
+  // - hängt ggf. ein '::' und den entsprechenden Teilstring an:
+  //   --> s = s + name[j+1..j+n]
+  // Return: Beginn des nächsten Namen-Teils
+  //         0: keine Ziffer
   VAR j,n: INTEGER;
   BEGIN
     Result := 0;
@@ -355,30 +386,37 @@ FUNCTION FriendlyName(CONST name: AnsiString): AnsiString;
     Result := j+n;
   END;
 
-VAR i,n: INTEGER;
+VAR i: INTEGER;
 BEGIN
   Result := name;
-  i := Pos('_GLOBAL__sub_I',name);
-  IF i > 0 THEN Inc(i,Length('_GLOBAL__sub_I'));
-  IF (Length(name) > i+2) AND (name[i+1] = '_') AND (name[i+2] = 'Z') THEN BEGIN
-    i := i+3;
+  i := Pos('_GLOBAL__sub_I_',name);
+  IF i > 0 THEN BEGIN
+    Inc(i,Length('_GLOBAL__sub_I_'));
+    Delete(Result,1,i-1);
+  END ELSE i := 1;
+  IF (Length(name) > i+2)
+  AND (name[i] = '_') AND (name[i+1] = 'Z') // schnller als i = Pos('_Z',name,i)
+  THEN BEGIN
+    // nächste Ziffer suchen:
+    i := i+2;
     WHILE (i <= Length(name)) AND NOT (name[i] IN ['0'..'9']) DO Inc(i);
     IF i > Length(name) THEN Exit;
+
     Result := '';
 
-    n := AddName(i,Result);
-    IF n = 0 THEN Exit;
-    i := n;
-    IF i > Length(name) THEN Exit;
+    WHILE TRUE DO BEGIN
+      i := AddNamePart(i,Result);
+      IF i = 0 THEN Exit;
+      IF i > Length(name) THEN Exit;
 
-    CASE name[n] OF
-      'C': BEGIN Result := Result+'()'; Exit; END;
-      'D': BEGIN Result := '~'+Result+'()'; Exit; END;
+      CASE name[i] OF
+        '0'..'9': ; // loop for next part
+        'C': BEGIN Result :=     Result+'()'; Exit; END;
+        'D': BEGIN Result := '~'+Result+'()'; Exit; END;
+        ELSE Exit; // todo: argument signatur?!
+      END;
     END;
 
-    n := AddName(i,Result);
-    IF n = 0 THEN Exit;
-//    i := n;
   END;
 END;
 
@@ -399,7 +437,7 @@ END;
 //!       - extract function names from assembler line
 //! @cond
 // -----------------------------------------------------------------------------
-FUNCTION GetFunctionName(CONST inputBuffer: AnsiString; i: INTEGER): AnsiString;
+FUNCTION GetFunctionName(CONST inputBuffer: String; i: INTEGER): String;
 VAR j: INTEGER;
 BEGIN
   Result := '';
@@ -424,7 +462,7 @@ END;
 //! @todo Apply @ref CreateNewFunctionInfo to your purposes
 //! @cond
 // -----------------------------------------------------------------------------
-FUNCTION CreateNewFunctionInfo(CONST fctName: AnsiString; address: uint32_t): PFunctionInfo; 
+FUNCTION CreateNewFunctionInfo(CONST fctName: String; address: uint32_t): PFunctionInfo;
 BEGIN
   Result := NIL;
   IF fctName = '' THEN Exit;
@@ -436,7 +474,8 @@ BEGIN
   Result.endaddr     := address;
   Result.deepest     := 0;
   Result.ownStack    := 0;
-  SetLength(Result.calledFct,1000);
+//  SetLength(Result.calledFct,1000);
+  SetLength(Result.CalledFctIDs,1000);
   Result.numJumpsTo  := 0;
   Result.calldeepth  := 0;
   Result.callcnt     := 0;
@@ -489,7 +528,7 @@ END;
 //! @cond
 // -----------------------------------------------------------------------------
 PROCEDURE findNextTextSection(VAR disassemblyInput: Text);
-VAR inputBuffer: AnsiString;
+VAR inputBuffer: String;
 BEGIN
   WHILE NOT EOF(disassemblyInput) DO BEGIN
     ReadLn(disassemblyInput,inputBuffer);
@@ -507,7 +546,8 @@ END;
 //! This function is used to update all stack information elements
 //! with their deepest stack usage. This function is recursive.
 //!
-//! @param currentFunctionInfo The stack information for which the stack usage has to be calculated and returned
+//! @param currentFunctionInfo The stack information for which the stack usage
+//!                            has to be calculated and returned
 //!
 //! @return The deepest stack usage of the given stack information
 //!
@@ -526,7 +566,9 @@ PROCEDURE CalcDeepestStackUsage(currentFunctionInfo: PFunctionInfo);
       target.isProcessing := true;
       FOR i := 0 TO target.numJumpsTo-1 DO BEGIN
   //      jumpTarget := findFunctionByAddress(target.jumpsTo[i]);
-        jumpTarget := findFunctionByName(target.CalledFct[i]);
+        jumpTarget := target.CalledFctIDs[i].Info;
+        IF NOT Assigned(jumpTarget)
+        THEN jumpTarget := findFunctionByName(target.CalledFctIDs[i].Name);
         IF NOT Assigned(jumpTarget) THEN BEGIN
           // printf("Error: Jump Target not found! Function %s jumps to 0x%x\n", target->name, target->jumpsTo[i]);
           continue;
@@ -566,7 +608,6 @@ END;
 FUNCTION cmpName(current: PFunctionInfo): BOOLEAN;
 BEGIN
   Result := CompareText(current.displayname,current.next.displayname) > 0;
-  //Result := (current.displayname > current.next.displayname);
 END;
 
 PROCEDURE sortFor(cmpFunc: TcmpFunc);
@@ -681,10 +722,13 @@ VAR ind: INTEGER;
         SubItems.Add(IntToStr(CallCnt));
         SubItems.Add(sFlags(FunctionFlags));
       END;
+
       IF (MaxDeepth < 0) OR (ind < MaxDeepth) THEN BEGIN
         Inc(ind);
         FOR i := 0 TO numJumpsTo-1 DO BEGIN
-          jumpTarget := findFunctionByName(CalledFct[i]);
+        jumpTarget := target.CalledFctIDs[i].Info;
+        IF NOT Assigned(jumpTarget)
+        THEN jumpTarget := findFunctionByName(CalledFctIDs[i].Name);
           IF NOT Assigned(jumpTarget) THEN BEGIN
             // printf("Error: Jump Target not found! Function %s jumps to 0x%x\n", target->name, target->jumpsTo[i]);
             continue;
@@ -704,6 +748,8 @@ BEGIN
   lv.Groups.Clear;
   lv.Items.BeginUpdate;
   lv.GroupView := FALSE;
+  // lv.ColumnsShowing := FALSE; protected
+  lv.ViewStyle := vsList;
 (*
   lv.Groups.BeginUpdate;
 *)
@@ -739,6 +785,7 @@ BEGIN
 (*
   lv.Groups.EndUpdate;
 *)
+  lv.ViewStyle := vsReport;
   lv.GroupView := TRUE;
   lv.Items.EndUpdate;
 END;
@@ -753,8 +800,9 @@ END;
 //!
 //! @param inputBuffer assembler line
 //!
-//! @retval >= 0: number of bytes the stack increases (0: i.g. not a stack operation)
-//! @retval <  0: indirect stack manipulation (i.e. stack pointer is changed by
+//! @retval > 0: number of bytes the stack increases
+//! @retval = 0: i.g. not a stack operation (or stack increase = 0: should not happen)
+//! @retval < 0: indirect stack manipulation (i.e. stack pointer is changed by
 //!               register value).
 //!
 //! @note
@@ -766,15 +814,19 @@ END;
 //!       - parse stack manipulation assembler instructions
 //! @cond
 // -----------------------------------------------------------------------------
-FUNCTION StackGrow(CONST inputBuffer: AnsiString): INTEGER;
-CONST _sp_    = #09'sp, ';            // Stack-Manipulation
+FUNCTION StackGrow(CONST inputBuffer: String): INTEGER;
+CONST
+// sp as argument of an assembler instruction:
+      _sp_    = #09'sp, ';            // Stack-Manipulation
       _sp1_   = #09'sp!, ';           // Stack-Manipulation
+
+// push/pop instructions:
       _push_  = #09'push'#09'{';      // push {r2, r3},  syn: stmdb sp!,...
       _vpush_ = #09'vpush'#09'{';     // vpush {d2, d3}, syn: vstmdb sp!,...
 //    _pop_   = #09'pop'#09;          // pop {r2, r3};   syn: ldmia sp!,...
 //    _vpop_  = #09'vpop'#09;         // vpop {d2, d3}   syn: vldmia sp!,...
 
-// "push"
+// stackpointer decrement instruction ("push"):
 // direkt:                                        Beispiel:
       _sub_sp_     = #09'sub'#09'sp, #';       // sub	sp, #44	; 0x2c
       _sub_sp_sp_  = #09'sub.w'#09'sp, sp, #'; // sub.w	sp, sp, #4224	; 0x1080
@@ -783,25 +835,29 @@ CONST _sp_    = #09'sp, ';            // Stack-Manipulation
       _stmdb_sp1_  = #09'stmdb'#09'sp!, {';    // stmdb	sp!, {r2, r3}
       _vstmdb_sp1_ = #09'vstmdb'#09'sp!, {';   // vstmdb	sp!, {r2, r3}
       _vstmfd_sp1_ = #09'vstmfd'#09'sp!, {';   // vstmfd	sp!, {r2, r3}
-// alles andere indirekt:                      // sub.w	sp, sp, r2
+// alles andere ist indirekt: ignorieren
+                                               // sub.w	sp, sp, r2
                                                // mov	sp, ip
                                                // mov	sp, r4
                                                // str.w	sp, [pc, #148]	; 800030c <__zero_table_end__>
-// "pop" ignorieren:
-     _add = #09'add';                          // add	sp, #44	; 0x2c
+// stackpointer increment instruction ("pop") - ignorieren:
+     _add_ = #09'add';                         // add	sp, #44	; 0x2c
                                                // add.w	sp, sp, #4224	; 0x1080
                                                // addw	sp, sp, #1684	; 0x694
-     _ld  = #09'ld';                           // ldmia.w	sp, {r1, r4}
+     _ld_  = #09'ld';                          // ldmia.w	sp, {r1, r4}
                                                // ldr.w	sp, [r7, #32]
-     _vld = #09'vld';                          // vldmia.w	sp, {r1, r4}
+     _vld_ = #09'vld';                         // vldmia.w	sp, {r1, r4}
 
-  FUNCTION GetStackGrowDirect(CONST asmCmd: AnsiString): INTEGER;
-
+  FUNCTION GetStackGrowDirect(CONST asmCmd: String): INTEGER;
+  // Result = 0: asmCmd nicht gefunden (keine/unbekannte Stack-Operation)
     FUNCTION GetStackGrow(i: INTEGER): INTEGER;
+    // inputBuffer = '....#NNNN'#09'...'   NNNN = Dezimalwert <> 0
+    // i = Pos('#',inputBuffer)+1
+    // Result <= 0: sollte nicht vorkommen (?!)
     VAR j: INTEGER;
     BEGIN
       //Result := 0;
-      j := Pos(#09,inputBuffer,i);
+      j := Pos(#09,inputBuffer,i);     // j = Pos(#09,...): nach dem NNNN
       IF j = 0 THEN j := Length(inputBuffer)+1;
       Result := StrToInt(Copy(inputBuffer,i,j-i));
     END;
@@ -811,9 +867,13 @@ CONST _sp_    = #09'sp, ';            // Stack-Manipulation
     IF Result > 0 THEN Result := GetStackGrow(Result+Length(asmCmd));
   END;
 
-  FUNCTION GetStackGrowReg(CONST asmCmd: AnsiString): INTEGER;
+  FUNCTION GetStackGrowReg(CONST asmCmd: String): INTEGER;
+  // Result = 0: asmCmd nicht gefunden (keine/unbekannte Stack-Operation)
+  // Result < 0: sollte nicht vorkommen
 
     FUNCTION GetRegGrow(i: INTEGER): INTEGER;
+    // inputBuffer = '....{{...}...'   {...} = Registerliste, 4 Byte Stack / Register
+    // i = Pos('{',inputBuffer)+1
     VAR j: INTEGER;
     BEGIN
       Result := 4; // Stackliste: mind. 1 Reg
@@ -821,7 +881,7 @@ CONST _sp_    = #09'sp, ';            // Stack-Manipulation
       WHILE i < j DO BEGIN // weitere Reg: nach dem nächsten Komma
         i := Pos(',',inputBuffer,i);
         IF i = 0 THEN Break;
-        // todo: prüfen ob Reg-Liste
+        // todo: prüfen ob Reg-Bereich: rn-rm mit n,m 0..15
         Inc(Result,4);
         Inc(i);
       END;
@@ -837,11 +897,11 @@ BEGIN
   Result := 0;
 
   i := Pos(_sp_,inputBuffer);
-  IF i > 0 THEN BEGIN // Stack-Befehl gefunden:
-    // add/ldm/ldr/vldm/vldr: ignorieren
-    i := Pos(_add,inputBuffer);  IF i > 0       THEN Exit;
-    i := Pos(_ld, inputBuffer);  IF i > 0       THEN Exit;
-    i := Pos(_vld, inputBuffer); IF i > 0       THEN Exit;
+  IF i > 0 THEN BEGIN         // Stack-Befehl gefunden:
+    // add/ldm/ldr/vldm/vldr (= "pop"): ignorieren
+    i := Pos(_add_, inputBuffer); IF i > 0      THEN Exit;
+    i := Pos(_ld_,  inputBuffer); IF i > 0      THEN Exit;
+    i := Pos(_vld_, inputBuffer); IF i > 0      THEN Exit;
 
     Result := GetStackGrowDirect(_sub_sp_);     IF Result > 0 THEN Exit;
     Result := GetStackGrowDirect(_sub_sp_sp_);  IF Result > 0 THEN Exit;
@@ -849,12 +909,12 @@ BEGIN
 
     Result := -1; Exit; // indirekt
   END;
-  
+
   i := Pos(_sp1_,inputBuffer);
-  IF i > 0 THEN BEGIN // Stack-Befehl gefunden:
+  IF i > 0 THEN BEGIN         // Stack-Befehl gefunden:
     // stm/str: ignorieren
-    i := Pos(_ld, inputBuffer);  IF i > 0       THEN Exit;
-    i := Pos(_vld, inputBuffer); IF i > 0       THEN Exit;
+    i := Pos(_ld_,  inputBuffer); IF i > 0      THEN Exit;
+    i := Pos(_vld_, inputBuffer); IF i > 0      THEN Exit;
 
     Result := GetStackGrowReg(_stmdb_sp1_);     IF Result > 0 THEN Exit;
     Result := GetStackGrowReg(_stmdbw_sp1_);    IF Result > 0 THEN Exit;
@@ -863,9 +923,10 @@ BEGIN
 
     Result := -1; Exit; // indirekt
   END;
-  
-  Result := GetStackGrowReg(_push_);          IF Result > 0 THEN Exit;
-  Result := GetStackGrowReg(_vpush_);         IF Result > 0 THEN Exit;
+
+  Result := GetStackGrowReg(_push_);            IF Result > 0 THEN Exit;
+  Result := GetStackGrowReg(_vpush_);           IF Result > 0 THEN Exit;
+  Result := 0; // keine Stackoperation
 END;
 
 // -----------------------------------------------------------------------------
@@ -885,7 +946,7 @@ END;
 //!       - parse call, branch and jump assembler instructions
 //! @cond
 // -----------------------------------------------------------------------------
-FUNCTION CalledFunction(CONST inputBuffer: AnsiString): AnsiString;
+FUNCTION CalledFunction(CONST inputBuffer: String): String;
 CONST _bl_    = #09'bl'#09;   // bl	8000330 <_ZN4TCCU8SetGStatEhh>
       _bw_    = #09'b.w'#09;  // b.w	8017250 <d_make_comp>
 
@@ -937,7 +998,7 @@ CONST MinLen = 10;
 VAR disassemblyInput: 	 Text;
     NewFunctionInfo:     PFunctionInfo;
     currentFunctionInfo: PFunctionInfo;
-    inputBuffer:         AnsiString;
+    inputBuffer:         String;
     address:             uint32_t;
 
   //----------------------------------------------------------------------------
@@ -984,7 +1045,7 @@ VAR disassemblyInput: 	 Text;
     end;
   END;
 
-  FUNCTION AddCalledFunction(CONST CalledFct: AnsiString): BOOLEAN;
+  FUNCTION AddCalledFunction(CONST CalledFct: String): BOOLEAN;
   BEGIN
     Result := CalledFct <> '';
     IF NOT Result THEN Exit;
@@ -995,11 +1056,14 @@ VAR disassemblyInput: 	 Text;
     VAR i := 0;
       // search for called function
       WHILE (i < currentFunctionInfo.numJumpsTo)
-        AND (currentFunctionInfo.calledFct[i] <> CalledFct) DO Inc(i);
+        AND (currentFunctionInfo.CalledFctIDs[i].Name <> CalledFct) DO Inc(i);
       // if not found: add to called function list
       IF i = currentFunctionInfo.numJumpsTo
       THEN BEGIN
-        currentFunctionInfo.calledFct[currentFunctionInfo.numJumpsTo] := CalledFct;
+        WITH currentFunctionInfo.CalledFctIDs[currentFunctionInfo.numJumpsTo] DO BEGIN
+          Name := CalledFct;
+          Info := NIL;
+        END;
         Inc(currentFunctionInfo.numJumpsTo);
       END;
     END;
@@ -1007,7 +1071,7 @@ VAR disassemblyInput: 	 Text;
 
   FUNCTION IncStackUsage(StackUsage: INTEGER): BOOLEAN;
   BEGIN
-    Result := StackUsage <> 0;
+    Result := StackUsage <> 0;  // StackUsage = 0: ..oder keine Stackoperation
     IF Result THEN BEGIN
       IF StackUsage > 0
       THEN Inc(currentFunctionInfo.ownStack,StackUsage)
@@ -1017,7 +1081,8 @@ VAR disassemblyInput: 	 Text;
 
 BEGIN
   FreeFunctionInfo();
-  IF openDisassembly(filename,disassemblyInput) THEN BEGIN
+  IF openDisassembly(filename,disassemblyInput)
+  THEN BEGIN try
 
     findNextTextSection(disassemblyInput);
     currentFunctionInfo := firstFunctionInfo;
@@ -1058,9 +1123,9 @@ BEGIN
       END;
       
     END;  // WHILE NOT EOF
-
+    except
+    END;
     CloseFile(disassemblyInput);
-
     //---------------------------------------------------------------------------------------------
     // calculate deepest stack usage for each function, calls recursively
     CalcDeepestStackUsage(firstFunctionInfo);
@@ -1129,7 +1194,7 @@ BEGIN
     Fct.BeginUpdate;
     FOR VAR i: INTEGER := 0 TO sl.Count-1 DO BEGIN
     VAR f: Text;
-    VAR s: AnsiString;
+    VAR s: String;
       Assign(f,sl[i]);
       Reset(f);
       WHILE NOT EOF(f) DO BEGIN
@@ -1227,6 +1292,8 @@ END;
     Analyse(filename);
     ...etc.
  *)
+
+
 initialization
 finalization
   FreeFunctionInfo();

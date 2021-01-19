@@ -1,7 +1,7 @@
-object Form1: TForm1
+object frmStackAnalyzer: TfrmStackAnalyzer
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'XMCStaticStackAnalyzer'
   ClientHeight = 466
   ClientWidth = 900
   Color = clBtnFace
@@ -99,7 +99,7 @@ object Form1: TForm1
       135
       447)
     object Label1: TLabel
-      Left = 0
+      Left = 8
       Top = 233
       Width = 38
       Height = 13
@@ -130,7 +130,7 @@ object Form1: TForm1
         'Deepest stacksize')
     end
     object edtMaxDeepth: TLabeledEdit
-      Left = 0
+      Left = 8
       Top = 116
       Width = 50
       Height = 21
@@ -141,7 +141,7 @@ object Form1: TForm1
       Text = '0'
     end
     object udMaxDeepth: TUpDown
-      Left = 50
+      Left = 58
       Top = 116
       Width = 16
       Height = 21
@@ -174,7 +174,7 @@ object Form1: TForm1
       TabOrder = 5
       OnClick = rgModeClick
     end
-    object GroupBox1: TGroupBox
+    object gbOptions: TGroupBox
       Left = 0
       Top = 159
       Width = 129
@@ -182,17 +182,18 @@ object Form1: TForm1
       Caption = 'Show functions:'
       TabOrder = 6
       object cbInclSysFunc: TCheckBox
-        Left = 3
-        Top = 39
+        Left = 11
+        Top = 42
         Width = 97
         Height = 17
         Caption = 'system function'
         TabOrder = 0
+        OnClick = cbOptionsClick
       end
       object cbInclNoStackUsage: TCheckBox
-        Left = 3
-        Top = 16
-        Width = 129
+        Left = 11
+        Top = 19
+        Width = 115
         Height = 17
         Caption = 'with no Stack usage'
         TabOrder = 1

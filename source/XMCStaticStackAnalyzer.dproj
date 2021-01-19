@@ -5,8 +5,8 @@
         <FrameworkType>VCL</FrameworkType>
         <MainSource>XMCStaticStackAnalyzer.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
-        <Platform Condition="'$(Platform)'==''">Win64</Platform>
+        <Config Condition="'$(Config)'==''">Doxygen</Config>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Application</AppType>
     </PropertyGroup>
@@ -88,8 +88,10 @@
         <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
         <SanitizedProjectName>XMCStaticStackAnalyzer</SanitizedProjectName>
         <VerInfo_Locale>1031</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=Dipl.Inf. Thomas Schneider (c) 2020-2021;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName).exe;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.1.0.0;InternalName=;LegalCopyright=Dipl.Inf. Thomas Schneider (c) 2020-2021;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName).exe;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;IndyIPCommon;RESTComponents;bindcompdbx;DBXInterBaseDriver;vcl;IndyIPServer;vclactnband;vclFireDAC;IndySystem;tethering;svnui;dsnapcon;FireDACADSDriver;FireDACMSAccDriver;fmxFireDAC;vclimg;TeeDB;FireDAC;vcltouch;vcldb;bindcompfmx;svn;FireDACSqliteDriver;FireDACPgDriver;ibmonitor;inetdb;FMXTee;soaprtl;DbxCommonDriver;FmxTeeUI;ibxpress;fmx;FireDACIBDriver;fmxdae;xmlrtl;soapmidas;ibxbindings;fmxobj;vclwinx;vclib;rtl;Tee;DbxClientDriver;CustomIPTransport;vcldsnap;dbexpress;IndyCore;vclx;bindcomp;appanalytics;dsnap;FireDACCommon;IndyIPClient;bindcompvcl;RESTBackendComponents;TeeUI;VCLRESTComponents;soapserver;dbxcds;VclSmp;adortl;vclie;bindengine;DBXMySQLDriver;CloudService;dsnapxml;FireDACMySQLDriver;dbrtl;IndyProtocols;inetdbxpress;FireDACCommonODBC;FireDACCommonDriver;inet;fmxase;$(DCC_UsePackage)</DCC_UsePackage>
@@ -123,6 +125,8 @@
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Build>3</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.1.0.3;InternalName=;LegalCopyright=Dipl.Inf. Thomas Schneider (c) 2020-2021;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName).exe;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -139,6 +143,8 @@
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.1.0.1;InternalName=;LegalCopyright=Dipl.Inf. Thomas Schneider (c) 2020-2021;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName).exe;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_3)'!=''">
         <PostBuildEvent><![CDATA[set PROJECTNAME=$(PROJECTNAME)
@@ -160,6 +166,9 @@ $(PreBuildEvent)]]></PreBuildEvent>
         <DCC_CBuilderOutput>JP</DCC_CBuilderOutput>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <PostBuildEvent><![CDATA[set RELEASE=RELEASE
+echo $(DIR)
+echo $(BDS)
+echo $(LOCALCOMMAND)
 $(PostBuildEvent)]]></PostBuildEvent>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_3_Win64)'!=''">
@@ -170,8 +179,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="src\frm_StackAnalyzer.pas">
-            <Form>Form1</Form>
-            <FormType>dfm</FormType>
+            <Form>frmStackAnalyzer</Form>
         </DCCReference>
         <DCCReference Include="src\Analyzer.pas"/>
         <None Include="Doxygen\DelphiDox.dox"/>
@@ -218,9 +226,9 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Doxygen\ShowDox.bat" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win64">
-                        <RemoteDir>.\</RemoteDir>
+                <DeployFile LocalName="Win32\Debug\XMCStaticStackAnalyzer.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>XMCStaticStackAnalyzer.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -230,9 +238,9 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win32\Debug\XMCStaticStackAnalyzer.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>XMCStaticStackAnalyzer.exe</RemoteName>
+                <DeployFile LocalName="Doxygen\ShowDox.bat" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -1096,7 +1104,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>set RELEASE=RELEASE&amp;&amp;set PROJECTNAME=$(PROJECTNAME)&amp;&amp;set DOXYPROJECTNAME=$(OUTPUTFILENAME)&amp;&amp;cd .\Doxygen&amp;&amp;Doxygen.bat</PostBuildEvent>
+        <PostBuildEvent>set RELEASE=RELEASE&amp;&amp;echo $(DIR)&amp;&amp;echo $(BDS)&amp;&amp;echo $(LOCALCOMMAND)&amp;&amp;set PROJECTNAME=$(PROJECTNAME)&amp;&amp;set DOXYPROJECTNAME=$(OUTPUTFILENAME)&amp;&amp;cd .\Doxygen&amp;&amp;Doxygen.bat</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Doxygen' And '$(Platform)'=='Win64'">

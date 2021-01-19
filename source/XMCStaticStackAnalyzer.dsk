@@ -1,78 +1,79 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\hpp\Analyzer.hpp',0,1,19,36,23,0,0,,
-File_1=TSourceModule,'C:\Daten\Projekte\Kunden\sb\SM386\Delphi\SM386_Test\Doxygen\Doxyfile.bat',0,1,1,1,1,0,0,,
-File_2=TSourceModule,'C:\Anwendungen\Dok\cmd_exe\for.dok',0,1,50,12,62,0,0,,
-File_3=TSourceModule,'C:\Daten\Doxygen\DelphiDox\DoxyGen\files\SetEnvVal.bat',0,1,1,1,1,0,0,,
-File_4=TSourceModule,'C:\Daten\Doxygen\DelphiDox\Example_1.1\Doxygen\Doxyfile.bat',0,1,1,1,1,0,0,,
-File_5=TSourceModule,'C:\Daten\Projekte\Kunden\sb\SM386\Delphi\SM386_Test\Doxygen\Doxygen.bat',0,1,1,1,1,0,0,,
-File_6=TSourceModule,'C:\Daten\Projekte\Kunden\sb\SM386\Delphi\SM386_DLL\Doxygen\Doxyfile.bat',0,1,1,1,1,0,0,,
-File_7=TSourceModule,'C:\Daten\Projekte\Kunden\sb\SM386\Delphi\SM386_DLL\Doxygen\Doxygen.bat',0,1,1,1,1,0,0,,
-File_8=TSourceModule,'C:\Daten\Doxygen\DelphiDox\DoxyGen\files\DDTemplate.pas',0,1,1,1,35,0,0,,
-File_9=TSourceModule,'c:\anwendungen\embarcadero\rad studio\20.0\source\rtl\win\Winapi.Windows.pas',0,1,40380,1,40395,0,0,,
-File_10=TSourceModule,'c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\VCL\Vcl.Controls.pas',0,1,5662,1,5685,0,0,,
-File_11=TSourceModule,'c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\VCL\Vcl.Forms.pas',0,1,9023,47,9037,0,0,{{1755,4}
-File_12=TSourceModule,'c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\RTL\SYS\System.pas',0,1,18243,1,18262,0,0,,
-File_13=TSourceModule,'c:\anwendungen\embarcadero\rad studio\20.0\source\rtl\common\System.Classes.pas',0,1,512,1,568,0,0,,
+File_0=TSourceModule,'C:\Daten\Doxygen\DelphiDox\DoxyGen\files\DDAdditional.dox',0,1,33,58,59,0,0,,
+File_1=TSourceModule,'C:\Daten\Doxygen\DelphiDox\DoxyGen\files\DDAliases.dox',0,1,58,34,56,0,0,,
+File_2=TSourceModule,'c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\VCL\Vcl.Controls.pas',0,1,12383,1,12401,0,0,,
+File_3=TSourceModule,'c:\anwendungen\embarcadero\rad studio\20.0\source\rtl\win\Winapi.Windows.pas',0,1,40379,1,40394,0,0,,
+File_4=TSourceModule,'c:\anwendungen\embarcadero\rad studio\20.0\source\rtl\common\System.Classes.pas',0,1,6479,1,6492,0,0,,
+File_5=TSourceModule,'c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\RTL\SYS\System.SysUtils.pas',0,1,5596,1,5611,0,0,,
+File_6=TSourceModule,'C:\Daten\Projekte\Kunden\sb\Sprintus\EraProPrj_git\Delphi\SprintusYMDService\frm_SprintusYMD.pas',0,1,163,1,176,0,0,,
+File_7=TSourceModule,'C:\Daten\Projekte\Delphi\StaticAnalyzer\Doxygen\Doxyfile',0,1,268,62,288,0,0,,
+File_8=TSourceModule,'C:\Daten\Projekte\Delphi\StaticAnalyzer\Doxygen\Doxyfile.bak',0,1,1,1,1,0,0,,
+File_9=TSourceModule,'C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\hpp\Analyzer.hpp',0,1,19,36,23,0,0,,
+File_10=TSourceModule,'C:\Daten\Projekte\Kunden\sb\SM386\Delphi\SM386_Test\Doxygen\Doxyfile.bat',0,1,1,1,1,0,0,,
+File_11=TSourceModule,'C:\Anwendungen\Dok\cmd_exe\for.dok',0,1,50,12,62,0,0,,
+File_12=TSourceModule,'C:\Daten\Doxygen\DelphiDox\DoxyGen\files\SetEnvVal.bat',0,1,1,1,1,0,0,,
+File_13=TSourceModule,'C:\Daten\Doxygen\DelphiDox\Example_1.1\Doxygen\Doxyfile.bat',0,1,1,1,1,0,0,,
+File_14=TSourceModule,'C:\Daten\Projekte\Kunden\sb\SM386\Delphi\SM386_Test\Doxygen\Doxygen.bat',0,1,1,1,1,0,0,,
 
 [Modules]
-Module0=C:\Daten\Projekte\Delphi\StaticAnalyzer\README.md
-Module1=C:\Daten\Doxygen\DelphiDox\DoxyGen\files\ReplaceEnv.bat
-Module2=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\Doxygen.bat
-Module3=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\DelphiDox.dox
-Module4=C:\Daten\Projekte\Delphi\StaticAnalyzer\Doxygen\Doxyfile
-Module5=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\h\doxygen.h
-Module6=C:\Daten\Doxygen\DelphiDox\DoxyGen\files\DDAliases.dox
-Module7=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\src\Analyzer.pas
-Module8=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\src\frm_StackAnalyzer.pas
-Module9=C:\Daten\Projekte\Kunden\sb\Sprintus\EraProPrj_git\Delphi\SprintusYMDService\frm_SprintusYMD.pas
-Module10=C:\Daten\Doxygen\DelphiDox\DoxyGen\files\DDAdditional.dox
-Module11=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\XMCStaticStackAnalyzer.dproj
-Module12=c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\VCL\Vcl.ComCtrls.pas
+Module0=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\h\doxygen.h
+Module1=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\src\frm_StackAnalyzer.pas
+Module2=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\src\Analyzer.pas
+Module3=c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\VCL\Vcl.ComCtrls.pas
+Module4=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\XMCStaticStackAnalyzer.dproj
+Module5=c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\RTL\SYS\System.pas
+Module6=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\DelphiDox.dox
+Module7=C:\Daten\Doxygen\DelphiDox\DoxyGen\files\ReplaceEnv.bat
+Module8=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\CreateDoxyCfg.bat
+Module9=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\CreateDoxyDok.bat
+Module10=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\MakeDoxyDok.bat
+Module11=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\Doxygen.bat
+Module12=C:\Daten\Projekte\Delphi\StaticAnalyzer\README.md
 Count=13
 EditWindowCount=1
 
-[C:\Daten\Projekte\Delphi\StaticAnalyzer\README.md]
-ModuleType=TSourceModule
-
-[C:\Daten\Doxygen\DelphiDox\DoxyGen\files\ReplaceEnv.bat]
-ModuleType=TSourceModule
-
-[C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\Doxygen.bat]
-ModuleType=TSourceModule
-
-[C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\DelphiDox.dox]
-ModuleType=TSourceModule
-
-[C:\Daten\Projekte\Delphi\StaticAnalyzer\Doxygen\Doxyfile]
-ModuleType=TSourceModule
-
 [C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\h\doxygen.h]
-ModuleType=TSourceModule
-
-[C:\Daten\Doxygen\DelphiDox\DoxyGen\files\DDAliases.dox]
-ModuleType=TSourceModule
-
-[C:\Daten\Projekte\Delphi\StaticAnalyzer\source\src\Analyzer.pas]
 ModuleType=TSourceModule
 
 [C:\Daten\Projekte\Delphi\StaticAnalyzer\source\src\frm_StackAnalyzer.pas]
 ModuleType=TSourceModule
 
-[C:\Daten\Projekte\Kunden\sb\Sprintus\EraProPrj_git\Delphi\SprintusYMDService\frm_SprintusYMD.pas]
+[C:\Daten\Projekte\Delphi\StaticAnalyzer\source\src\Analyzer.pas]
 ModuleType=TSourceModule
 
-[C:\Daten\Doxygen\DelphiDox\DoxyGen\files\DDAdditional.dox]
+[c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\VCL\Vcl.ComCtrls.pas]
 ModuleType=TSourceModule
 
 [C:\Daten\Projekte\Delphi\StaticAnalyzer\source\XMCStaticStackAnalyzer.dproj]
 ModuleType=TBaseProject
 
-[c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\VCL\Vcl.ComCtrls.pas]
+[c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\RTL\SYS\System.pas]
+ModuleType=TSourceModule
+
+[C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\DelphiDox.dox]
+ModuleType=TSourceModule
+
+[C:\Daten\Doxygen\DelphiDox\DoxyGen\files\ReplaceEnv.bat]
+ModuleType=TSourceModule
+
+[C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\CreateDoxyCfg.bat]
+ModuleType=TSourceModule
+
+[C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\CreateDoxyDok.bat]
+ModuleType=TSourceModule
+
+[C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\MakeDoxyDok.bat]
+ModuleType=TSourceModule
+
+[C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\Doxygen.bat]
+ModuleType=TSourceModule
+
+[C:\Daten\Projekte\Delphi\StaticAnalyzer\README.md]
 ModuleType=TSourceModule
 
 [EditWindow0]
 ViewCount=13
-CurrentEditView=C:\Daten\Projekte\Delphi\StaticAnalyzer\README.md
+CurrentEditView=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\h\doxygen.h
 View0=0
 View1=1
 View2=2
@@ -93,170 +94,170 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=9900
-Height=8889
+Width=8706
+Height=7222
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=9900
-ClientHeight=8889
+ClientWidth=8706
+ClientHeight=7222
 DockedToMainForm=1
 BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
-LeftPanelSize=1519
+LeftPanelSize=1894
 LeftPanelClients=DockSite3,DockSite2
-LeftPanelData=00000800010100000000881300000000000001EF0500000000000001000000003F09000009000000446F636B53697465330100000000B922000009000000446F636B5369746532FFFFFFFF
-RightPanelSize=1625
+LeftPanelData=00000800010100000000DE0F00000000000001660700000000000001000000003F09000009000000446F636B53697465330100000000361C000009000000446F636B5369746532FFFFFFFF
+RightPanelSize=2000
 RightPanelClients=DockSite4,PropertyInspector
-RightPanelData=0000080001010000000088130000000000000159060000000000000100000000E40D00001100000050726F7065727479496E73706563746F720100000000B922000009000000446F636B5369746534FFFFFFFF
+RightPanelData=00000800010100000000DE0F00000000000001D0070000000000000100000000E40D00001100000050726F7065727479496E73706563746F720100000000361C000009000000446F636B5369746534FFFFFFFF
 BottomPanelSize=0
 BottomPanelClients=DockSite1
 BottomPanelData=0000080001000100000009000000446F636B5369746531C044000000000000001F06000000000000FFFFFFFF
-BottomMiddlePanelSize=2944
+BottomMiddlePanelSize=2744
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel,MessageView
-BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E6756696577392E00000000000002800B0000000000000100000000392E00000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E6756696577BA2000000000000002B80A0000000000000100000000BA2000000F0000004D65737361676556696577466F726DFFFFFFFF
 
 [View0]
 CustomEditViewType=TEditView
-Module=c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\VCL\Vcl.ComCtrls.pas
-CursorX=31
-CursorY=30222
-TopLine=30132
-LeftCol=1
-Elisions={{17159,0},{17210,22},{''}}{{17213,0},{17264,22},{''}}{{17330,0},{17496,22},{''}}{{17633,0},{17709,22},{''}}
-Bookmarks=
-EditViewName=c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\VCL\Vcl.ComCtrls.pas
-
-[View1]
-CustomEditViewType=TEditView
 Module=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\XMCStaticStackAnalyzer.dpr
-CursorX=1
-CursorY=3
-TopLine=1
+CursorX=32
+CursorY=28
+TopLine=16
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\XMCStaticStackAnalyzer.dpr
 
-[View2]
+[View1]
 CustomEditViewType=TEditView
 Module=C:\Daten\Projekte\Delphi\StaticAnalyzer\README.md
-CursorX=1
-CursorY=92
-TopLine=70
+CursorX=57
+CursorY=28
+TopLine=19
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Daten\Projekte\Delphi\StaticAnalyzer\README.md
 
-[View3]
+[View2]
 CustomEditViewType=TEditView
 Module=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\Doxygen.bat
-CursorX=90
-CursorY=27
-TopLine=22
+CursorX=1
+CursorY=8
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\Doxygen.bat
 
+[View3]
+CustomEditViewType=TEditView
+Module=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\MakeDoxyDok.bat
+CursorX=1
+CursorY=2
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\MakeDoxyDok.bat
+
 [View4]
 CustomEditViewType=TEditView
+Module=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\CreateDoxyDok.bat
+CursorX=49
+CursorY=12
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\CreateDoxyDok.bat
+
+[View5]
+CustomEditViewType=TEditView
+Module=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\CreateDoxyCfg.bat
+CursorX=49
+CursorY=12
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\CreateDoxyCfg.bat
+
+[View6]
+CustomEditViewType=TEditView
 Module=C:\Daten\Doxygen\DelphiDox\DoxyGen\files\ReplaceEnv.bat
-CursorX=46
-CursorY=17
+CursorX=1
+CursorY=1
 TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Daten\Doxygen\DelphiDox\DoxyGen\files\ReplaceEnv.bat
 
-[View5]
-CustomEditViewType=TEditView
-Module=C:\Daten\Projekte\Delphi\StaticAnalyzer\Doxygen\Doxyfile
-CursorX=1
-CursorY=1
-TopLine=1
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=C:\Daten\Projekte\Delphi\StaticAnalyzer\Doxygen\Doxyfile
-
-[View6]
+[View7]
 CustomEditViewType=TEditView
 Module=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\DelphiDox.dox
-CursorX=19
-CursorY=18
+CursorX=46
+CursorY=44
 TopLine=39
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\DelphiDox.dox
 
-[View7]
+[View8]
 CustomEditViewType=TEditView
 Module=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\src\Analyzer.pas
 CursorX=1
-CursorY=57
-TopLine=48
+CursorY=789
+TopLine=776
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\src\Analyzer.pas
 
-[View8]
+[View9]
 CustomEditViewType=TEditView
-Module=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\h\doxygen.h
+Module=c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\VCL\Vcl.ComCtrls.pas
 CursorX=1
-CursorY=1
-TopLine=10
+CursorY=20825
+TopLine=20804
+LeftCol=1
+Elisions={{17159,0},{17210,22},{''}}{{17213,0},{17264,22},{''}}{{17330,0},{17496,22},{''}}{{17633,0},{17709,22},{''}}
+Bookmarks=
+EditViewName=c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\VCL\Vcl.ComCtrls.pas
+
+[View10]
+CustomEditViewType=TEditView
+Module=c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\RTL\SYS\System.pas
+CursorX=3
+CursorY=31401
+TopLine=31418
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\h\doxygen.h
+EditViewName=c:\anwendungen\embarcadero\rad studio\20.0\SOURCE\RTL\SYS\System.pas
 
-[View9]
+[View11]
 CustomEditViewType=TEditView
 Module=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\src\frm_StackAnalyzer.pas
-CursorX=1
-CursorY=130
-TopLine=117
+CursorX=15
+CursorY=57
+TopLine=43
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\src\frm_StackAnalyzer.pas
 
-[View10]
+[View12]
 CustomEditViewType=TEditView
-Module=C:\Daten\Projekte\Kunden\sb\Sprintus\EraProPrj_git\Delphi\SprintusYMDService\frm_SprintusYMD.pas
-CursorX=1
-CursorY=176
-TopLine=163
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=C:\Daten\Projekte\Kunden\sb\Sprintus\EraProPrj_git\Delphi\SprintusYMDService\frm_SprintusYMD.pas
-
-[View11]
-CustomEditViewType=TEditView
-Module=C:\Daten\Doxygen\DelphiDox\DoxyGen\files\DDAliases.dox
-CursorX=70
-CursorY=164
+Module=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\h\doxygen.h
+CursorX=73
+CursorY=17
 TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Daten\Doxygen\DelphiDox\DoxyGen\files\DDAliases.dox
-
-[View12]
-CustomEditViewType=TEditView
-Module=C:\Daten\Doxygen\DelphiDox\DoxyGen\files\DDAdditional.dox
-CursorX=58
-CursorY=59
-TopLine=33
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=C:\Daten\Doxygen\DelphiDox\DoxyGen\files\DDAdditional.dox
+EditViewName=C:\Daten\Projekte\Delphi\StaticAnalyzer\source\Doxygen\h\doxygen.h
 
 [UndockedDesigner]
 Count=0
@@ -266,8 +267,8 @@ Count=5
 Watch0='name',256,0,18,0,0,'Überwachte Ausdrücke',1
 Watch1='Result',256,0,18,0,0,'Überwachte Ausdrücke',1
 Watch2='inputBuffer',256,0,18,0,0,'Überwachte Ausdrücke',1
-Watch3='lv.Groups.Count',256,0,18,1,0,'Überwachte Ausdrücke',1
-Watch4='lv.Items.count',256,0,18,1,0,'Überwachte Ausdrücke',1
+Watch3='lv.Groups.Count',256,0,18,0,0,'Überwachte Ausdrücke',1
+Watch4='lv.Items.count',256,0,18,0,0,'Überwachte Ausdrücke',1
 
 [WatchWindow]
 WatchColumnWidth=120
@@ -322,18 +323,16 @@ PercentageSizes=1
 Create=1
 Visible=1
 Docked=0
-State=2
+State=1
 Left=144
 Top=278
 Width=8931
 Height=8522
 MaxLeft=-6
 MaxTop=-11
-MaxWidth=8931
-MaxHeight=8522
-ClientWidth=10025
-ClientHeight=9756
-BottomPanelSize=8889
+ClientWidth=8831
+ClientHeight=8089
+BottomPanelSize=7222
 BottomPanelClients=EditWindow0
 BottomPanelData=0000080000000000000000000000000000000000000000000000000100000000000000000C0000004564697457696E646F775F30FFFFFFFF
 
@@ -345,12 +344,12 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=1519
-Height=5900
+Width=1894
+Height=4233
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1519
-ClientHeight=5900
+ClientWidth=1894
+ClientHeight=4233
 TBDockHeight=5900
 LRDockWidth=2350
 Dockable=1
@@ -364,13 +363,13 @@ Docked=1
 State=0
 Left=0
 Top=28
-Width=6656
-Height=2633
+Width=4712
+Height=2433
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=6656
-ClientHeight=2633
-TBDockHeight=2633
+ClientWidth=4712
+ClientHeight=2433
+TBDockHeight=2433
 LRDockWidth=2769
 Dockable=1
 StayOnTop=0
@@ -383,12 +382,12 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=1625
-Height=5022
+Width=2000
+Height=3356
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1625
-ClientHeight=5022
+ClientWidth=2000
+ClientHeight=3356
 TBDockHeight=7156
 LRDockWidth=2000
 Dockable=1
@@ -421,17 +420,22 @@ Docked=1
 State=0
 Left=0
 Top=28
-Width=1625
+Width=2000
 Height=3156
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1625
+ClientWidth=2000
 ClientHeight=3156
 TBDockHeight=6100
-LRDockWidth=1625
+LRDockWidth=2000
 Dockable=1
 StayOnTop=0
-SplitPos=95
+SplitPos=117
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Caption,OnChange
+ExpandedItems=Anchors=0,LiveBindings=0,Constraints=0,Font=0,LiveBindings-Designer=0,Margins=0,Padding=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -458,7 +462,7 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1332
+Left=-1272
 Top=200
 Width=275
 Height=367
@@ -663,8 +667,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=319
-Top=711
+Left=-31680
+Top=-31424
 Width=2856
 Height=3211
 MaxLeft=-1
@@ -767,11 +771,11 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=1519
+Width=1894
 Height=1967
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1519
+ClientWidth=1894
 ClientHeight=1967
 TBDockHeight=3678
 LRDockWidth=1894
@@ -877,14 +881,14 @@ Docked=1
 State=0
 Left=0
 Top=241
-Width=1519
-Height=6211
+Width=1894
+Height=4544
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1519
-ClientHeight=6211
+ClientWidth=1894
+ClientHeight=4544
 TBDockHeight=9011
-LRDockWidth=1519
+LRDockWidth=1894
 Dockable=1
 StayOnTop=0
 TabPosition=1
@@ -901,14 +905,14 @@ Docked=1
 State=0
 Left=0
 Top=28
-Width=1519
+Width=1894
 Height=1967
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1519
+ClientWidth=1894
 ClientHeight=1967
 TBDockHeight=9011
-LRDockWidth=1519
+LRDockWidth=1894
 Dockable=1
 StayOnTop=0
 TabPosition=1
@@ -925,14 +929,14 @@ Docked=1
 State=0
 Left=0
 Top=348
-Width=1625
-Height=5022
+Width=2000
+Height=3356
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1625
-ClientHeight=5022
+ClientWidth=2000
+ClientHeight=3356
 TBDockHeight=6100
-LRDockWidth=1625
+LRDockWidth=2000
 Dockable=1
 StayOnTop=0
 TabPosition=1

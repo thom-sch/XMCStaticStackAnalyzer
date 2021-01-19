@@ -26,5 +26,6 @@
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5"/>
-	</ActiveMobileDevice>  <BT_BuildType>Debug</BT_BuildType>
+	</ActiveMobileDevice>
+	<BT_BuildType>Debug</BT_BuildType>
 </BorlandProject>
