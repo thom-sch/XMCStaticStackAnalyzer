@@ -32,9 +32,9 @@
 //-- user supplied -----------------------------------------------------------
 
 //-- forward type declarations -----------------------------------------------
-class DELPHICLASS TForm1;
+class DELPHICLASS TfrmStackAnalyzer;
 //-- type declarations -------------------------------------------------------
-class PASCALIMPLEMENTATION TForm1 : public TForm
+class PASCALIMPLEMENTATION TfrmStackAnalyzer : public TForm
 {
 	typedef TForm inherited;
 	
@@ -52,7 +52,7 @@ __published:
 	TButton* btnSave;
 	TSaveDialog* SaveDialog1;
 	TRadioGroup* rgMode;
-	TGroupBox* GroupBox1;
+	TGroupBox* gbOptions;
 	TCheckBox* cbInclSysFunc;
 	TCheckBox* cbInclNoStackUsage;
 	TLabel* Label1;
@@ -62,23 +62,24 @@ __published:
 	void __fastcall rgModeClick(TObject* Sender);
 	void __fastcall udMaxDeepthClick(TObject* Sender, TUDBtnType Button);
 	void __fastcall btnSaveClick(TObject* Sender);
+	void __fastcall cbOptionsClick(TObject* Sender);
 	
 private:
-	void __fastcall ShowResult();
+	void __fastcall ShowResult(bool Clr);
 	void __fastcall ModeChanged();
 public:
-	/* TCustomForm.Create */ inline __fastcall virtual TForm1(TComponent* AOwner) : TForm(AOwner) { }
-	/* TCustomForm.CreateNew */ inline __fastcall virtual TForm1(TComponent* AOwner, int Dummy) : TForm(AOwner, Dummy) { }
-	/* TCustomForm.Destroy */ inline __fastcall virtual ~TForm1() { }
+	/* TCustomForm.Create */ inline __fastcall virtual TfrmStackAnalyzer(TComponent* AOwner) : TForm(AOwner) { }
+	/* TCustomForm.CreateNew */ inline __fastcall virtual TfrmStackAnalyzer(TComponent* AOwner, int Dummy) : TForm(AOwner, Dummy) { }
+	/* TCustomForm.Destroy */ inline __fastcall virtual ~TfrmStackAnalyzer() { }
 	
 public:
-	/* TWinControl.CreateParented */ inline __fastcall TForm1(HWND ParentWindow) : TForm(ParentWindow) { }
+	/* TWinControl.CreateParented */ inline __fastcall TfrmStackAnalyzer(HWND ParentWindow) : TForm(ParentWindow) { }
 	
 };
 
 
 //-- var, const, procedure ---------------------------------------------------
-extern DELPHI_PACKAGE TForm1* Form1;
+extern DELPHI_PACKAGE TfrmStackAnalyzer* frmStackAnalyzer;
 #pragma pack(pop)
 #pragma option pop
 

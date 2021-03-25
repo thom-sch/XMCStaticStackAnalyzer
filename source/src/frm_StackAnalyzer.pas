@@ -159,6 +159,7 @@ BEGIN
     0: SortForName();
     1: SortForOwn();
     2: SortForDeepest();
+    3: SortForCallDeepth();
   END;
   ViewOptions := [];
   IF cbInclSysFunc.Checked      THEN Include(ViewOptions,InclSysFunc);

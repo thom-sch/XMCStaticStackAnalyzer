@@ -1,4 +1,4 @@
-﻿XMCStaticStackAnalyzer
+XMCStaticStackAnalyzer
 ======================
 Static stack analyser for Infineon XMC4 µControllers based on assembler list file
 
@@ -20,14 +20,14 @@ This is a GUI program; so
 - select
   - Display mode:
     - Markdown table
-    - hierarchical function list (call tree)
-  - in the latter case (call tree): \n
+    - call tree
+  - in the latter case (call tree): <br>
     select max. call deepth shown
   - include functions (excluded by default):
     - with no stack usage
-    - system calls (function beginning with an underline "_")
+    - system calls (function beginning with an underscore "_")
 
-  Note that this affects only the display, not the calculation of stack usage!
+  Note that this only affects the display, not the calculation of stack usage!
 - select display sort order:
   - alphabetic
   - by own stack usage
@@ -60,7 +60,7 @@ The output consits of following columns:
 --------------------------------------------------------------------------------
 Build the program
 -----------------
-This program is written in Delphi using Embarcadero Rad Studio 10.3.3 / Common eddition.
+This program is written in Delphi using Embarcadero Rad Studio 10.3.3 / Common edition.
 
 To build the application simply load the project file into the IDE and compile
 the configuration as you need (Win32/64, Debug/Build). An additional configuration
@@ -82,7 +82,7 @@ eMail:    Thomsa.Schneider@sys-thos.de
 ### Copyright
 GPLv3 (https://www.gnu.org/licenses/gpl-3.0)
 
-Doxygen dokumentation created using DelphiDox-ALIASES, details on\n
+Doxygen documentation created using DelphiDox-ALIASES, details on<br>
 https://sys-thos.de/DelphiDox/
 
 

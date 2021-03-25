@@ -6,7 +6,7 @@
         <MainSource>XMCStaticStackAnalyzer.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Doxygen</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Application</AppType>
     </PropertyGroup>
@@ -166,13 +166,12 @@ $(PreBuildEvent)]]></PreBuildEvent>
         <DCC_CBuilderOutput>JP</DCC_CBuilderOutput>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <PostBuildEvent><![CDATA[set RELEASE=RELEASE
-echo $(DIR)
-echo $(BDS)
-echo $(LOCALCOMMAND)
 $(PostBuildEvent)]]></PostBuildEvent>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_3_Win64)'!=''">
         <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Build>2</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.1.0.2;InternalName=;LegalCopyright=Dipl.Inf. Thomas Schneider (c) 2020-2021;LegalTrademarks=;OriginalFilename=$(MSBuildProjectName).exe;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -226,9 +225,9 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win32\Debug\XMCStaticStackAnalyzer.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>XMCStaticStackAnalyzer.exe</RemoteName>
+                <DeployFile LocalName="Doxygen\ShowDox.bat" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -238,9 +237,9 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Doxygen\ShowDox.bat" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win64">
-                        <RemoteDir>.\</RemoteDir>
+                <DeployFile LocalName="Win32\Debug\XMCStaticStackAnalyzer.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>XMCStaticStackAnalyzer.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -1104,7 +1103,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>set RELEASE=RELEASE&amp;&amp;echo $(DIR)&amp;&amp;echo $(BDS)&amp;&amp;echo $(LOCALCOMMAND)&amp;&amp;set PROJECTNAME=$(PROJECTNAME)&amp;&amp;set DOXYPROJECTNAME=$(OUTPUTFILENAME)&amp;&amp;cd .\Doxygen&amp;&amp;Doxygen.bat</PostBuildEvent>
+        <PostBuildEvent>set RELEASE=RELEASE&amp;&amp;set PROJECTNAME=$(PROJECTNAME)&amp;&amp;set DOXYPROJECTNAME=$(OUTPUTFILENAME)&amp;&amp;cd .\Doxygen&amp;&amp;Doxygen.bat</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Doxygen' And '$(Platform)'=='Win64'">

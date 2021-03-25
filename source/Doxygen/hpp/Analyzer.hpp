@@ -32,6 +32,7 @@ typedef Set<TViewOption, TViewOption::InclNoStackUsage, TViewOption::InclSysFunc
 //-- var, const, procedure ---------------------------------------------------
 extern DELPHI_PACKAGE void __fastcall sortForName();
 extern DELPHI_PACKAGE void __fastcall sortForDeepest();
+extern DELPHI_PACKAGE void __fastcall sortForCallDeepth();
 extern DELPHI_PACKAGE void __fastcall sortForOwn();
 extern DELPHI_PACKAGE void __fastcall FillStringList(TStrings* sl, TViewOptions ViewOptions = TViewOptions() );
 extern DELPHI_PACKAGE void __fastcall FillListView(TListView* lv, int MaxDeepth = 0x5, TViewOptions ViewOptions = TViewOptions() );

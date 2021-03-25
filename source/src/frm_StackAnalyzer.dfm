@@ -82,7 +82,9 @@ object frmStackAnalyzer: TfrmStackAnalyzer
       end>
     ColumnClick = False
     GridLines = True
+    GroupView = True
     ReadOnly = True
+    RowSelect = True
     SmallImages = ImageList1
     TabOrder = 1
     ViewStyle = vsReport
@@ -116,18 +118,18 @@ object frmStackAnalyzer: TfrmStackAnalyzer
       OnClick = btnLoadClick
     end
     object cbSorting: TComboBox
-      Left = 0
+      Left = 8
       Top = 252
       Width = 89
       Height = 21
-      ItemIndex = 0
       TabOrder = 1
       Text = 'Alphabetic'
       OnChange = cbSortingChange
       Items.Strings = (
         'Alphabetic'
         'Own stacksize'
-        'Deepest stacksize')
+        'Deepest stacksize'
+        'Call deepth')
     end
     object edtMaxDeepth: TLabeledEdit
       Left = 8
@@ -170,7 +172,7 @@ object frmStackAnalyzer: TfrmStackAnalyzer
       ItemIndex = 0
       Items.Strings = (
         'Markdown table'
-        'Hiercharchical')
+        'Call tree')
       TabOrder = 5
       OnClick = rgModeClick
     end

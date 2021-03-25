@@ -70,12 +70,14 @@ TYPE TViewOptions = SET OF TViewOption;
 PROCEDURE FillStringList(sl: TStrings; ViewOptions: TViewOptions = []);
 
 PROCEDURE FillListView(lv: TListView; MaxDeepth: INTEGER = 5; ViewOptions: TViewOptions = []);
+//PROCEDURE FillListItem(Item: TListItem);
 
 PROCEDURE Analyse(filename: String);
 
 PROCEDURE sortForOwn();
 PROCEDURE sortForDeepest();
 PROCEDURE sortForName();
+PROCEDURE sortForCallDeepth();
 
 PROCEDURE GetSU(DirName: String; Fct: TStrings); // not fully implemented
 
@@ -112,6 +114,35 @@ TYPE TFunctionFlags = SET OF TFunctionFlag;
 
 // -----------------------------------------------------------------------------
 //! @endcond
+//! @DFunc{sFlags,Analyzer} @private
+//! @brief Converts @ref TFunctionFlags to string
+//!
+//! Replaces each flag with a single character if present, else with a blank " "
+//!
+//! @param FunctionFlags flags to replace
+//!
+//! @DMethodSource{sFlags,Analyzer}
+//!
+//! @cond
+// -----------------------------------------------------------------------------
+FUNCTION sFlags(FunctionFlags: TFunctionFlags): String;
+  FUNCTION cFlag(FunctionFlag: TFunctionFlag; c: Char): Char;
+  BEGIN
+    IF FunctionFlag IN FunctionFlags
+    THEN Result := c
+    ELSE Result := ' ';
+  END;
+BEGIN //! sFlags
+  Result := ' '
+         + cFlag(usesFunctionPointers, 'P')
+         + cFlag(indirectFunctionCalls,'I')
+         + cFlag(usesVariableStack,    'V')
+         + cFlag(recursivlyCalled,     'R')
+         ;
+END; //! sFlags
+
+// -----------------------------------------------------------------------------
+//! @endcond
 //! @DRecordType{TFunctionInfo,Analyzer}
 //! @brief Linked List Entry for function information
 //!
@@ -133,20 +164,21 @@ TYPE
 
      TFunctionInfo = RECORD
        name:         String;          // Name of the function as it is in *.lst-file
-       displayname:  String;          // Name of the function as is in C-source
+       displayname:  String;          // Name of the function as it is in C-source
        startaddr:    uint32_t;        // Start address of the function
        endaddr:      uint32_t;        // End address of the function
        ownStack:     uint32_t;        // Estimated maximum own stack usage
        deepest:      uint32_t;        // Estimated amount of stack bytes for this function and the deepest call tree
-       //calledFct:    ARRAY OF String; // Names of called functions
-       CalledFctIDs: ARRAY OF TFunctionID;
+       CalledFctIDs: ARRAY OF TFunctionID; // Name of called functions and Pointer to its FunctionInfo
        numJumpsTo:   INTEGER;         // Number of entries in ::calledFct, i.e. number of (directly) called functions
        calldeepth:   uint32_t;        // Number hierarchically called functions
        callcnt:      uint32_t;        // Number of caller's calling this function
        FunctionFlags: TFunctionFlags; //
        isProcessed:  BOOLEAN;         // Flag if deepest stack usage was calculated
-       isProcessing: BOOLEAN;         // Flag if deepest stack usage is currently calculated:
-                                      // avoid recursive endless loops
+       isProcessing: BOOLEAN;         // Control flag during walking through function info list
+                                      // to avoid recursive endless loops:
+                                      // - calculationg deepest stack usage
+                                      // - building call tree
        next:         PFunctionInfo;   // Pointer to the next list member
        FUNCTION IsSysFunc(): BOOLEAN;
        FUNCTION UsesStack(): BOOLEAN;
@@ -192,6 +224,29 @@ VAR firstFunctionInfo: PFunctionInfo;
 VAR FunctionInfoCnt:   INTEGER;
 
 // -----------------------------------------------------------------------------
+
+TYPE TCallTreeItem = RECORD
+       FctInfo: PFunctionInfo;
+       Indent:  INTEGER;
+       GrpID:   INTEGER;
+     END;
+
+VAR LinearCallTree: ARRAY OF TCallTreeItem;
+    CallTreeCnt: INTEGER = 0;
+
+PROCEDURE AddToCallTree(f: PFunctionInfo; AIndent: INTEGER; AGrpID: INTEGER);
+BEGIN
+  IF CallTreeCnt <= Length(LinearCallTree)
+  THEN SetLength(LinearCallTree,CallTreeCnt+100);
+  WITH LinearCallTree[CallTreeCnt] DO BEGIN
+    FctInfo := f;
+    Indent  := AIndent;
+    GrpID   := AGrpID;
+  END;
+  Inc(CallTreeCnt);
+END;
+
+// -----------------------------------------------------------------------------
 //! @endcond
 //! @DProc{FreeFunctionInfo,Analyzer} @private
 //!
@@ -207,6 +262,8 @@ BEGIN
     Dispose(FunctionInfo);
   END;
   FunctionInfoCnt := 0;
+  SetLength(LinearCallTree,0);
+  CallTreeCnt := 0;
 END;
 
 // -----------------------------------------------------------------------------
@@ -225,6 +282,20 @@ BEGIN
   Result.next := f;
 END;
 
+PROCEDURE FillListItem(Item: TListItem);
+BEGIN
+  IF Item.Index < CallTreeCnt
+  THEN WITH LinearCallTree[Item.Index], FctInfo^ DO BEGIN
+    Item.Caption := FctInfo.displayname;
+    Item.Indent  := Indent;
+    Item.GroupID := GrpID;
+    Item.SubItems.Add(IntToStr(OwnStack));
+    Item.SubItems.Add(IntToStr(Deepest));
+    Item.SubItems.Add(IntToStr(CallDeepth));
+    Item.SubItems.Add(IntToStr(CallCnt));
+    Item.SubItems.Add(sFlags(FunctionFlags));
+  END;
+END;
 // -----------------------------------------------------------------------------
 // Since functions were searched by name rather than by address and also
 // inserted to the called function list only if they are not yet present
@@ -307,35 +378,6 @@ BEGIN
   END;
   Result := current;
 END;
-
-// -----------------------------------------------------------------------------
-//! @endcond
-//! @DFunc{sFlags,Analyzer} @private
-//! @brief Converts @ref TFunctionFlags to string
-//!
-//! Replaces each flag with a single character if present, else with a blank " "
-//!
-//! @param FunctionFlags flags to replace
-//!
-//! @DMethodSource{sFlags,Analyzer}
-//!
-//! @cond
-// -----------------------------------------------------------------------------
-FUNCTION sFlags(FunctionFlags: TFunctionFlags): String;
-  FUNCTION cFlag(FunctionFlag: TFunctionFlag; c: Char): Char;
-  BEGIN
-    IF FunctionFlag IN FunctionFlags
-    THEN Result := c
-    ELSE Result := ' ';
-  END;
-BEGIN //! sFlags
-  Result := ' '
-         + cFlag(usesFunctionPointers, 'P')
-         + cFlag(indirectFunctionCalls,'I')
-         + cFlag(usesVariableStack,    'V')
-         + cFlag(recursivlyCalled,     'R')
-         ;
-END; //! sFlags
 
 // -----------------------------------------------------------------------------
 //! @endcond
@@ -609,6 +651,10 @@ FUNCTION cmpName(current: PFunctionInfo): BOOLEAN;
 BEGIN
   Result := CompareText(current.displayname,current.next.displayname) > 0;
 END;
+FUNCTION cmpCallDeepth(current: PFunctionInfo): BOOLEAN;
+BEGIN
+  Result := (current.calldeepth < current.next.calldeepth);
+END;
 
 PROCEDURE sortFor(cmpFunc: TcmpFunc);
 VAR
@@ -643,6 +689,10 @@ END;
 PROCEDURE sortForDeepest();
 BEGIN
   SortFor(cmpDeepest);
+END;
+PROCEDURE sortForCallDeepth();
+BEGIN
+  SortFor(cmpCallDeepth);
 END;
 
 (**
@@ -702,16 +752,16 @@ PROCEDURE FillListView(lv: TListView; MaxDeepth: INTEGER; ViewOptions: TViewOpti
 VAR ind: INTEGER;
     GrpID: INTEGER;
 
-  PROCEDURE SetCallView(VAR target: TFunctionInfo);
+  PROCEDURE SetCallView(VAR target: PFunctionInfo);
   VAR i: INTEGER;
       jumpTarget: PFunctionInfo;
   BEGIN
     IF target.isProcessing THEN Exit;
     target.isProcessing := TRUE;
 
-    WITH target DO
+    WITH target^ DO
     IF IsVisible(ViewOptions) THEN BEGIN
-
+//      AddToCallTree(target,ind,GrpID);
       WITH lv.Items.Add() DO BEGIN
         Caption := displayname;
         Indent  := ind;
@@ -733,7 +783,7 @@ VAR ind: INTEGER;
             // printf("Error: Jump Target not found! Function %s jumps to 0x%x\n", target->name, target->jumpsTo[i]);
             continue;
           END;
-          SetCallView(jumpTarget^);
+          SetCallView(jumpTarget);
         END;
         Dec(ind);
       END;
@@ -744,15 +794,9 @@ VAR ind: INTEGER;
 
 VAR current: PFunctionInfo;
 BEGIN
+lv.Visible := FALSE; // sonst dauerts ewig
   lv.Clear;
   lv.Groups.Clear;
-  lv.Items.BeginUpdate;
-  lv.GroupView := FALSE;
-  // lv.ColumnsShowing := FALSE; protected
-  lv.ViewStyle := vsList;
-(*
-  lv.Groups.BeginUpdate;
-*)
 
   current := firstFunctionInfo;
   WHILE Assigned(current) DO WITH current^ DO BEGIN
@@ -778,16 +822,12 @@ BEGIN
         State := [lgsCollapsible,lgsCollapsed];
       END;
 *)
-      SetCallView(current^);
+      SetCallView(current);
     END;
     current := current.next;
   END;
-(*
-  lv.Groups.EndUpdate;
-*)
-  lv.ViewStyle := vsReport;
-  lv.GroupView := TRUE;
-  lv.Items.EndUpdate;
+
+lv.Visible := TRUE;
 END;
 
 // -----------------------------------------------------------------------------
