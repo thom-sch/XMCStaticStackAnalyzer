@@ -77,7 +77,7 @@ Dipl.Inf. Thomas Schneider (c) 2020-2021
 
 Homepage: https://sys-thos.de
 
-eMail:    Thomsa.Schneider@sys-thos.de
+eMail:    Thomas.Schneider@sys-thos.de
 
 ### Copyright
 GPLv3 (https://www.gnu.org/licenses/gpl-3.0)
