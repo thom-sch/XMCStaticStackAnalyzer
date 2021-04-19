@@ -53,7 +53,7 @@ The output consits of following columns:
   - 'P': function uses pointers to call other functions
   - 'I': called functions are using indirect function calls, too
   - 'V': stack is manipulated by variable's values
-  - 'R': function is called (directly or indirectly) recursively called by itself
+  - 'R': function is called (directly or indirectly) recursively by itself
 - **Name**: Original name from assembler listing
 
 
