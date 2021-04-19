@@ -11,7 +11,7 @@ Debug
 *.dcu
 *.o
 *.obj
-# enthält u.a. Info über alle(!) geladene Dateien in der IDE, auch nicht projektbezogene und/oder schon geschlossene!
+# enthält u.a. Info über alle(!) geladenen Dateien in der IDE, auch nicht projektbezogene und/oder schon geschlossene!
 *.dsk
 # Batch-Dateien und Doxygen-Konfigurationsdatei außer Doxygen.bat:
 # --> Doxygen.bat explizit zu .git hinzufügen (git add....)!
