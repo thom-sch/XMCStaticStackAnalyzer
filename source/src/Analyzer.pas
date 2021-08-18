@@ -1089,7 +1089,7 @@ VAR disassemblyInput: 	 Text;
   BEGIN
     Result := CalledFct <> '';
     IF NOT Result THEN Exit;
-    
+
     IF ( CalledFct = '*' ) // indirect function call:
     THEN Include(currentFunctionInfo.FunctionFlags,usesFunctionPointers)
     ELSE BEGIN             // direct function call
@@ -1128,7 +1128,7 @@ BEGIN
     currentFunctionInfo := firstFunctionInfo;
 
     WHILE NOT EOF(disassemblyInput) DO BEGIN
-    
+
       ReadLn(disassemblyInput,inputBuffer);
       IF (Length(inputBuffer) < MinLen) THEN Continue;
 
@@ -1161,7 +1161,7 @@ BEGIN
            END;
         ELSE ;
       END;
-      
+
     END;  // WHILE NOT EOF
     except
     END;
@@ -1217,7 +1217,7 @@ end;
 //! (use compiler-flag: -fstack-usage). Information was written for each module
 //! in files with extension *.su. These may also be used.
 //!
-//! This function only walks through the given directory and gathers the 
+//! This function only walks through the given directory and gathers the
 //! function names into a TStrings component.
 //!
 //! @todo
@@ -1340,4 +1340,3 @@ finalization
 end.
 //! @endcond
 //! @}
-

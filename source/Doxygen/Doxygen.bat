@@ -16,7 +16,7 @@ echo ---------------------------------------------------------------------------
 rem set path to Doxygen executable:
 set DOXYGEN_PATH=C:\Anwendungen\DocTools\doxygen\bin
 
-rem Set paths to doxygen documentation directory (where Doxyfile is located):
+rem Set paths to doxygen documentation directory (where Doxyfile is located, too):
 set DOXYDOK_PATH=..\..\Doxygen
 set DOXYFILE=Doxyfile
 
